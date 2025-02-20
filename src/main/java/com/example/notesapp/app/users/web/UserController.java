@@ -5,19 +5,18 @@ import com.example.notesapp.app.users.dtos.*;
 import com.example.notesapp.app.users.model.User;
 import com.example.notesapp.app.users.services.UserCommandService;
 import com.example.notesapp.app.users.services.UserQueryService;
-import com.example.notesapp.system.jwt.JWTTokenProvider;
+import com.example.notesapp.app.system.jwt.JWTTokenProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.notesapp.system.constants.Constants.JWT_TOKEN_HEADER;
+import static com.example.notesapp.app.system.constants.Constants.JWT_TOKEN_HEADER;
 
 
 @RestController
@@ -70,7 +69,6 @@ public class UserController {
         return new ResponseEntity<>(loginResponse, jwtHeader, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@RequestBody CreateUserRequest createUserRequest){
         this.userCommandService.createUser(createUserRequest);

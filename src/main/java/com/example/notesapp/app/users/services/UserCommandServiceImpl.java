@@ -8,9 +8,8 @@ import com.example.notesapp.app.users.exceptions.UserAlreadyExists;
 import com.example.notesapp.app.users.mapper.UserMapper;
 import com.example.notesapp.app.users.model.User;
 import com.example.notesapp.app.users.repository.UserRepository;
+import com.example.notesapp.app.system.security.UserRole;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +31,7 @@ public class UserCommandServiceImpl implements UserCommandService{
                 .email(createUserRequest.email())
                 .phone(createUserRequest.phone())
                 .password(passwordEncoder.encode(createUserRequest.password()))
+                .userRole(UserRole.USER)
                 .build();
 
         userRepository.saveAndFlush(newUser);

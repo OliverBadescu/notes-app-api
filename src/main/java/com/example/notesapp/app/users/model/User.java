@@ -1,6 +1,8 @@
 package com.example.notesapp.app.users.model;
 
-import com.example.notesapp.system.security.UserRole;
+import com.example.notesapp.app.notes.model.Note;
+import com.example.notesapp.app.system.security.UserRole;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -69,9 +72,14 @@ public class User implements UserDetails {
     )
     private String phone;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Note> notes;
+
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
 
     public User(Long id, String fullName, String phoneNumber, String email, String password, UserRole userRole, LocalDateTime registeredAt, LocalDateTime createdAt, boolean active) {
         this.id = id;
