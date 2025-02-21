@@ -1,5 +1,6 @@
 package com.example.notesapp.app.global_exceptions;
 
+import com.example.notesapp.app.notes.exceptions.NoteNotFound;
 import com.example.notesapp.app.users.exceptions.AccessDeniedException;
 import com.example.notesapp.app.users.exceptions.NoUserFound;
 import com.example.notesapp.app.users.exceptions.UserAlreadyExists;
@@ -29,6 +30,13 @@ public class GlobalExceptionsHandler {
     public ResponseEntity<Object> handleAccesDeniedException(AccessDeniedException exception) {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
+                .body(exception.getMessage());
+    }
+
+    @ExceptionHandler({NoteNotFound.class})
+    public ResponseEntity<Object> handleNoteNotFoundException(NoteNotFound exception) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
                 .body(exception.getMessage());
     }
 }
