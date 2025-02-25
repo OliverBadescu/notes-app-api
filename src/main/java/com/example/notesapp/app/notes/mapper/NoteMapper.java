@@ -12,7 +12,8 @@ public class NoteMapper {
                 note.getTitle(),
                 note.getDescription(),
                 note.getCreateDate(),
-                UserMapper.userToResponseDto(note.getUser())
+                UserMapper.userToResponseDto(note.getUser()),
+                note.getNoteCategory()
         );
     }
 }

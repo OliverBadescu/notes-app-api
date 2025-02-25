@@ -31,6 +31,7 @@ public class NoteCommandServiceImpl implements NoteCommandService{
                 .createDate(LocalDate.now())
                 .description(createNoteRequest.description())
                 .user(user)
+                .noteCategory(createNoteRequest.noteCategory())
                 .title(createNoteRequest.title()).build();
 
         noteRepository.saveAndFlush(note);
@@ -56,6 +57,7 @@ public class NoteCommandServiceImpl implements NoteCommandService{
 
         note.setDescription(updateNoteRequest.description());
         note.setTitle(updateNoteRequest.title());
+        note.setNoteCategory(updateNoteRequest.noteCategory());
 
         noteRepository.save(note);
 

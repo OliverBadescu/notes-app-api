@@ -1,6 +1,7 @@
 package com.example.notesapp.app.notes.model;
 
 
+import com.example.notesapp.app.notes.enums.NoteCategory;
 import com.example.notesapp.app.users.model.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -58,6 +59,12 @@ public class Note {
             columnDefinition = "TEXT"
     )
     private LocalDate createDate;
+
+    @Column(
+            name = "note_category",
+            nullable = false
+    )
+    private NoteCategory noteCategory;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
